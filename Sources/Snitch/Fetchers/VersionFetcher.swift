@@ -1,7 +1,7 @@
 //
 //  MIT License
 //
-//  Copyright (c) 2021 Tamerlan Satualdypov
+//  Copyright (c) 2022 Tamerlan Satualdypov
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,6 +24,14 @@
 import Foundation
 
 struct VersionFetcher: Fetcher {
+    var title: String {
+        return NSLocalizedString("title.version", bundle: .module, comment: "")
+    }
+    
+    var icon: Icon {
+        return .init(name: "tag", kind: .system)
+    }
+    
     func fetch() -> String? {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     }

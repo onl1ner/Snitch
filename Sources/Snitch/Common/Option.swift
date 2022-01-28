@@ -1,7 +1,7 @@
 //
 //  MIT License
 //
-//  Copyright (c) 2021 Tamerlan Satualdypov
+//  Copyright (c) 2022 Tamerlan Satualdypov
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,36 +21,30 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import Foundation
+import UIKit
 
 public enum Option: String {
     case size
     case version
     
+    private var fetcher: Fetcher {
+        switch self {
+            case .size:
+                return SizeFetcher()
+            case .version:
+                return VersionFetcher()
+        }
+    }
+    
     var title: String {
-        switch self {
-        case .size:
-            return NSLocalizedString("title.size", bundle: .module, comment: "")
-        case .version:
-            return NSLocalizedString("title.version", bundle: .module, comment: "")
-        }
+        return fetcher.title
     }
     
-    var iconName: String {
-        switch self {
-        case .size:
-            return "shippingbox"
-        case .version:
-            return "tag"
-        }
+    var icon: UIApplicationShortcutIcon {
+        return fetcher.icon.shortcutIcon
     }
     
-    var fetcher: Fetcher {
-        switch self {
-        case .size:
-            return SizeFetcher()
-        case .version:
-            return VersionFetcher()
-        }
+    func fetch() -> String? {
+        return fetcher.fetch()
     }
 }

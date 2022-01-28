@@ -23,26 +23,21 @@
 
 import UIKit
 
-public struct Snitch {
-    public static func snitch(options: [Option] = [.size, .version]) {
-        var shortcutItems: [UIApplicationShortcutItem] = .init()
-        
-        for option in options {
-            if let data = option.fetch() {
-                let title: String = "\(option.title): \(data)"
-                let icon: UIApplicationShortcutIcon = option.icon
-                
-                shortcutItems.append(
-                    .init(
-                        type: option.rawValue,
-                        localizedTitle: title,
-                        localizedSubtitle: nil,
-                        icon: icon
-                    )
-                )
-            }
+struct Icon {
+    enum Kind: String {
+        case system
+        case custom
+    }
+    
+    let name: String
+    let kind: Kind
+    
+    var shortcutIcon: UIApplicationShortcutIcon {
+        switch kind {
+            case .system:
+                return .init(systemImageName: name)
+            case .custom:
+                return .init(templateImageName: name)
         }
-        
-        UIApplication.shared.shortcutItems = shortcutItems
     }
 }
