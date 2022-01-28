@@ -23,9 +23,11 @@
 
 import UIKit
 
-public enum Option: String {
+public enum Option {
     case size
     case version
+    
+    case custom(Fetcher)
     
     private var fetcher: Fetcher {
         switch self {
@@ -33,15 +35,28 @@ public enum Option: String {
                 return SizeFetcher()
             case .version:
                 return VersionFetcher()
+            case .custom(let fetcher):
+                return fetcher
         }
     }
     
-    var title: String {
+    public var title: String {
         return fetcher.title
     }
     
-    var icon: UIApplicationShortcutIcon {
+    public var icon: UIApplicationShortcutIcon {
         return fetcher.icon.shortcutIcon
+    }
+    
+    public var rawValue: String {
+        switch self {
+        case .size:
+            return "option.size"
+        case .version:
+            return "option.version"
+        case .custom(let fetcher):
+            return "option.custom.\(fetcher)"
+        }
     }
     
     func fetch() -> String? {

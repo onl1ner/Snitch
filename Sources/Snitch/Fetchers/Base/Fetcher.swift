@@ -23,7 +23,7 @@
 
 import UIKit
 
-protocol Fetcher {
+public protocol Fetcher {
     var title: String { get }
     var icon: Icon { get }
     

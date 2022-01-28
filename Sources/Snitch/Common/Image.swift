@@ -23,21 +23,26 @@
 
 import UIKit
 
-struct Icon {
-    enum Kind: String {
+public struct Icon {
+    public enum Kind: String {
         case system
         case custom
     }
     
-    let name: String
-    let kind: Kind
+    public let name: String
+    public let kind: Kind
     
-    var shortcutIcon: UIApplicationShortcutIcon {
+    public var shortcutIcon: UIApplicationShortcutIcon {
         switch kind {
             case .system:
                 return .init(systemImageName: name)
             case .custom:
                 return .init(templateImageName: name)
         }
+    }
+    
+    public init(name: String, kind: Kind) {
+        self.name = name
+        self.kind = kind
     }
 }
