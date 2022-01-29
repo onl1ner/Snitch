@@ -23,10 +23,35 @@
 
 import UIKit
 
+/**
+ An option that will be shown in the
+ Home Screen quick action menu.
+ */
 public enum Option {
+    /**
+     Option that will snitch the size of the application.
+     
+     Size fetcher will calculate the size of the application
+     depending on the sizes of the following directories:
+     document, libraries and temporary files.
+     */
     case size
+    
+    /**
+     Option that will snitch the version of the application.
+     
+     Version fetcher will fetch the user-visible string for
+     the version of the bundle.
+     */
     case version
     
+    /**
+     Option with the custom fetcher.
+     
+     You may create your own fetcher and pass it
+     to the `Snitch.snitch(options:)` function
+     so it will be shown along with the other info.
+     */
     case custom(Fetcher)
     
     private var fetcher: Fetcher {

@@ -23,7 +23,27 @@
 
 import UIKit
 
+/**
+ Snitch is a handy library to access useful information
+ about your application from the Home Screen.
+ 
+ To snitch the information just call static function `snitch(options:)`
+ of this structure and it will add Home Screen quick action menu
+ with the information according to the passed options.
+ */
 public struct Snitch {
+    /**
+     Function to tell the `Snitch` to snitch the data according to the passed options.
+     
+     You may call this function at any point in your app,
+     but the best place to call it is in `sceneWillResignActive(_:)`,
+     because during the transition to a background state is a good time
+     to update any dynamic quick actions, so the system will execute
+     code inside the function right before user returns to the Home Screen.
+     
+     - Parameters:
+        - options: Options that you want to be shown on Home Screen quick action menu.
+     */
     public static func snitch(options: [Option] = [.size, .version]) {
         var shortcutItems: [UIApplicationShortcutItem] = .init()
         

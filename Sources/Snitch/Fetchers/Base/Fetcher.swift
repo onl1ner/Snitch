@@ -21,11 +21,34 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import UIKit
+import Foundation
 
+/**
+ Fetcher protocol that all fetchers conform to.
+ 
+ If you want to create your own fetcher you must
+ conform it to this protocol to be able to pass it
+ to the `Snitch`.
+ */
 public protocol Fetcher {
+    /**
+     Title of the fetcher that will be shown in the
+     Home Screen quick action menu.
+     */
     var title: String { get }
+    
+    /**
+     Icon of the fetcher that will be shown in the
+     Home Screen quick action menu.
+     */
     var icon: Icon { get }
     
+    /**
+     Function that is called by the `Snitch` to
+     retrieve the value from the fetchers.
+     
+     - Returns:
+        Raw fetched data.
+     */
     func fetch() -> String?
 }

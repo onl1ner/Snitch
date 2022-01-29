@@ -23,7 +23,15 @@
 
 import UIKit
 
+/**
+ An icon that associated with the option
+ passed to the `Snitch`.
+ */
 public struct Icon {
+    /**
+     Kind that is used to determine
+     the catalog of the image to show.
+     */
     public enum Kind: String {
         case system
         case custom
@@ -32,6 +40,10 @@ public struct Icon {
     public let name: String
     public let kind: Kind
     
+    /**
+     An `UIApplicationShortcutIcon` instance depending
+     on the passed `kind` and `name`.
+     */
     public var shortcutIcon: UIApplicationShortcutIcon {
         switch kind {
             case .system:
@@ -41,6 +53,13 @@ public struct Icon {
         }
     }
     
+    /**
+     Creates an icon with provided name and kind.
+     
+     - Parameters:
+         - name: Name of the image that will be used as an icon.
+         - kind: Kind of the image that associated with its catalog.
+     */
     public init(name: String, kind: Kind) {
         self.name = name
         self.kind = kind
