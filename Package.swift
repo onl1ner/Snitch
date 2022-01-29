@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.3
 
 import PackageDescription
 
@@ -6,7 +6,7 @@ let package = Package(
     name: "Snitch",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v13)
+        .iOS(.v9)
     ],
     products: [
         .library(
