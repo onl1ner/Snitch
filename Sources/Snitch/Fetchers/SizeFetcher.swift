@@ -28,7 +28,7 @@ struct SizeFetcher: Fetcher {
         return NSLocalizedString("title.size", bundle: .module, comment: "")
     }
     
-    var icon: Icon {
+    var icon: Icon? {
         return .init(name: "shippingbox", kind: .system)
     }
     

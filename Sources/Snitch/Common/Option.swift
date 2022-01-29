@@ -69,8 +69,8 @@ public enum Option {
         return fetcher.title
     }
     
-    public var icon: UIApplicationShortcutIcon {
-        return fetcher.icon.shortcutIcon
+    public var icon: UIApplicationShortcutIcon? {
+        return fetcher.icon?.shortcutIcon
     }
     
     public var rawValue: String {

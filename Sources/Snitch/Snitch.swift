@@ -27,11 +27,35 @@ import UIKit
  Snitch is a handy library to access useful information
  about your application from the Home Screen.
  
- To snitch the information just call static function `snitch(options:)`
+ To snitch the information just call `snitch` function
  of this structure and it will add Home Screen quick action menu
  with the information according to the passed options.
  */
 public struct Snitch {
+    public let options: [Option]
+    
+    /**
+     An array with the `UIApplicationShortcutItem` instances.
+     
+     This array contains shortcut items prepared to be displayed on the Home Screen.
+     Use this variable if you already have shortcut items in your app.
+     */
+    public var shortcutItems: [UIApplicationShortcutItem] {
+        return options.compactMap { option in
+            guard let data = option.fetch() else { return nil }
+            
+            let title: String = "\(option.title): \(data)"
+            let icon: UIApplicationShortcutIcon? = option.icon
+            
+            return .init(
+                type: option.rawValue,
+                localizedTitle: title,
+                localizedSubtitle: nil,
+                icon: icon
+            )
+        }
+    }
+    
     /**
      Function to tell the `Snitch` to snitch the data according to the passed options.
      
@@ -40,29 +64,18 @@ public struct Snitch {
      because during the transition to a background state is a good time
      to update any dynamic quick actions, so the system will execute
      code inside the function right before user returns to the Home Screen.
+     */
+    public func snitch() {
+        UIApplication.shared.shortcutItems = self.shortcutItems
+    }
+    
+    /**
+     Creates an instance of the `Snitch` structure.
      
      - Parameters:
-        - options: Options that you want to be shown on Home Screen quick action menu.
+        - options: Options that you want to show in Quick Action Menu.
      */
-    public static func snitch(options: [Option] = [.size, .version]) {
-        var shortcutItems: [UIApplicationShortcutItem] = .init()
-        
-        for option in options {
-            if let data = option.fetch() {
-                let title: String = "\(option.title): \(data)"
-                let icon: UIApplicationShortcutIcon = option.icon
-                
-                shortcutItems.append(
-                    .init(
-                        type: option.rawValue,
-                        localizedTitle: title,
-                        localizedSubtitle: nil,
-                        icon: icon
-                    )
-                )
-            }
-        }
-        
-        UIApplication.shared.shortcutItems = shortcutItems
+    public init(options: [Option] = [.size, .version]) {
+        self.options = options
     }
 }

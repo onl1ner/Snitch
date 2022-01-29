@@ -41,7 +41,7 @@ public protocol Fetcher {
      Icon of the fetcher that will be shown in the
      Home Screen quick action menu.
      */
-    var icon: Icon { get }
+    var icon: Icon? { get }
     
     /**
      Function that is called by the `Snitch` to

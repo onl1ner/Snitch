@@ -28,7 +28,7 @@ struct VersionFetcher: Fetcher {
         return NSLocalizedString("title.version", bundle: .module, comment: "")
     }
     
-    var icon: Icon {
+    var icon: Icon? {
         return .init(name: "tag", kind: .system)
     }
     
